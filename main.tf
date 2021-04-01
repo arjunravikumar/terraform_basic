@@ -1,10 +1,10 @@
 provider "aws" {
-  region = "eu-west-1"
+  region = "us-east-1"
 }
 
 resource "aws_instance" "web" {
 
-  ami           = "ami-25488752"
+  ami           = "ami-0742b4e673072066f"
   instance_type = "t2.micro"
   security_groups = [aws_security_group.ssh_http.name]
   user_data              = file("template/user_data.sh")
