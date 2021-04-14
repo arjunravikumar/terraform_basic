@@ -85,22 +85,19 @@ resource "aws_security_group" "allow_http" {
 resource "aws_launch_configuration" "web" {
   name_prefix = "web-"
 
-  image_id = "ami-0947d2ba12ee1ff75" # Amazon Linux 2 AMI (HVM), SSD Volume Type
+  image_id = "ami-0742b4e673072066f"
   instance_type = "t2.micro"
-  key_name = "Lenovo T410"
 
   security_groups = [ aws_security_group.allow_http.id ]
   associate_public_ip_address = true
 
-  user_data = <<USER_DATA
-#!/bin/bash
-yum update
-yum -y install nginx
-echo "$(curl http://169.254.169.254/latest/meta-data/local-ipv4)" > /usr/share/nginx/html/index.html
-chkconfig nginx on
-service nginx start
-  USER_DATA
-
+  user_data = <<-EOF
+					#!/bin/bash
+					yum install httpd -y
+					echo "You are connected to $(hostname)" > /var/www/html/index.html
+					service httpd start
+					chkconfig httpd on
+			EOF
   lifecycle {
     create_before_destroy = true
   }
