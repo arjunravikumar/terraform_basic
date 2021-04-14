@@ -255,5 +255,5 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_down" {
 }
 
 output "url" {
-  value = aws_lb.my-aws-alb.*.dns_name
+  value = aws_elb.web_elb.*.dns_name
 }
