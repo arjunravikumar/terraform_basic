@@ -254,6 +254,6 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_down" {
   alarm_actions = [ aws_autoscaling_policy.web_policy_down.arn ]
 }
 
-output "elb_dns_name" {
-  value = aws_elb.web_elb.dns_name
+output "url" {
+  value = aws_lb.my-aws-alb.*.dns_name
 }
